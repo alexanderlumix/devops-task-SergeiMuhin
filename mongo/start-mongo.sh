@@ -10,7 +10,7 @@ echo "Starting on port: $MONGO_PORT"
 chmod 400 "$KEYFILE"
 
 # Start mongod WITHOUT auth to create the initial user
-mongod --port "$MONGO_PORT" --keyFile "$KEYFILE" --bind_ip_all --fork --logpath /tmp/mongod-init.log
+mongod --port "$MONGO_PORT" --keyFile "$KEYFILE"  --bind_ip_all --fork --logpath /tmp/mongod-init.log
 
 # Wait until MongoDB is ready
 until mongosh --port "$MONGO_PORT" --eval "db.adminCommand('ping')" &>/dev/null; do
