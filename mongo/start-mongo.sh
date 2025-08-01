@@ -4,7 +4,7 @@ set -e
 KEYFILE=/etc/mongo-keyfile
 
 USERNAME="${MONGO_INITDB_ROOT_USERNAME:-admin}"
-PASSWORD="${MONGO_INITDB_ROOT_PASSWORD:-Unix1!forever}"
+PASSWORD="${MONGO_INITDB_ROOT_PASSWORD:-Unix1forever}"
 
 echo "Starting on port: $MONGO_PORT"
 chmod 400 "$KEYFILE"
