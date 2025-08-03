@@ -41,10 +41,15 @@ def init_primary(server):
             ]
         }
         try:
-            client.admin.command('replSetInitiate', rs_config)
-            print(f"Replica set initiated on {host}:{port}.")
-        except Exception as e:
-            print(f"Replica set initiation error (may be already initiated): {e}")
+            client.admin.command('replSetGetStatus')
+            print(f"Replica set already initiated on {host}:{port}")
+        except pymongo.errors.OperationFailure as e:
+            if e.code == 94:  # NotYetInitialized
+                print("Replica set not yet initiated. Initiating now...")
+                client.admin.command('replSetInitiate', rs_config)
+                print(f"Replica set initiated on {host}:{port}.")
+            else:
+                print(f"Replica set status check failed: {e}")
     except Exception as e:
         print(f"Error connecting to {host}:{port} as {user}: {e}")
         exit(1)
